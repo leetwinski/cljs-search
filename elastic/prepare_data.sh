@@ -8,7 +8,7 @@ escape_quotes() {
 }
 
 remove_blank_lines() {
-    sed '/^\s*$|^M$/d' < $1 | cat
+    sed '/^\s*$/d' < $1 | cat
 }
 
 echo -e "$(remove_blank_lines "$FILE")" | if [[ -f "$FILE" ]]; then 
