@@ -20,4 +20,5 @@
     (fn []
       [:div
        [search-panel]
-       @result])))
+       [:ul (for [hit (-> @result :result :hits)]
+              ^{:key (:_id hit)} [:li {} hit])]])))
