@@ -1,6 +1,0 @@
-{ "index" : {"_index":"test", "_type": "_doc", "_id": "1"}}
-{ "field1" : "value1 somethi" }
-{ "index" : {"_index":"test", "_type": "_doc", "_id": "2"}}
-{ "field1" : "value2 something" }
-{ "index" : {"_index":"test", "_type": "_doc", "_id": "3"}}
-{ "field1" : "value asdasdas3" }
