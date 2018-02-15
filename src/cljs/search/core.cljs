@@ -13,8 +13,8 @@
        :private true}
   settings {:host "http://localhost"
             :port 9200
-            ;;:index-name "test"
-            ;;:field-name "field1"
+            :index-name "test"
+            :field-name "text"
             })
 
 

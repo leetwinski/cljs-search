@@ -26,7 +26,6 @@
 (re-frame/reg-event-db
  ::update-results
  (fn [db [_ results]]
-   (println "upd result: " results)
    (assoc db :results results)))
 
 
