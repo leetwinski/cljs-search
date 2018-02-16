@@ -4,24 +4,16 @@
             [clojure.core.async :as a]
             [search.events :as events]
             [search.views :as views]
-            [search.config :as config]
+            [search.config :as config :refer [+settings+]]
             [search.effects :as effects]
             [search.service :as service]))
-
-
-(def ^{:const true
-       :private true}
-  settings {:host "http://localhost"
-            :port 9200
-            :index-name "test"
-            :field-name "text"
-            })
 
 
 (defn dev-setup []
   (when config/debug?
     (enable-console-print!)
-    (println "dev mode")))
+    (println "dev mode")
+    (println "app settings: " +settings+)))
 
 (defn mount-root []
   (re-frame/clear-subscription-cache!)
@@ -30,6 +22,6 @@
 
 (defn ^:export init []
   (re-frame/dispatch-sync [::events/initialize-db])
-  (re-frame/dispatch-sync [::events/initialize-service settings])
+  (re-frame/dispatch-sync [::events/initialize-service +settings+])
   (dev-setup)
   (mount-root))
