@@ -1,0 +1,30 @@
+version: "2"
+
+services:
+  elastic:
+    container_name: elastic
+    image: elastic-custom:latest
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  api:
+    container_name: api
+    image: search-api:latest
+    ports:
+      - "3000:3000"
+      - "5005:5005"
+    environment:
+      - ELASTIC_HOST=http://elastic
+      - ELASTIC_PORT=9200
+
+  ui:
+    container_name: ui
+    image: search-ui:latest
+    ports:
+      - "8080:80"
+    environment:
+      - API_HOST=http://api
+      - API_PORT=3000
+      - INDEX_NAME=test
+      - FIELD_NAME=text

@@ -1,0 +1,6 @@
+FROM openjdk:8-alpine
+ADD ./target/search-0.1.0-SNAPSHOT-standalone.jar /app/app.jar
+EXPOSE 3000
+EXPOSE 5005
+
+CMD ["java", "-Xmx512m", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005", "-jar", "/app/app.jar"]
