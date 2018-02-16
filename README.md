@@ -64,13 +64,3 @@ you can also prepare your own dataset from newline separated text file by using 
 ```
 ./prepare_data.sh moby_dick.txt > new_data.dat
 ```
-
-## Production Build
-
-
-To compile clojurescript to javascript:
-
-```
-lein clean
-lein cljsbuild once min
-```
