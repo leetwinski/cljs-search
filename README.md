@@ -1,7 +1,6 @@
 # search
 
-A [re-frame](https://github.com/Day8/re-frame) application designed to ... well, that part is up to you.
-
+A [re-frame](https://github.com/Day8/re-frame) elasticsearch search example
 ## Development Mode
 
 ### Start Cider from Emacs:
