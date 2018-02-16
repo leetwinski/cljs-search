@@ -41,8 +41,9 @@
 (re-frame/reg-event-fx
  ::initialize-service
  (fn [{db :db} [_ {:keys [host port index-name field-name]}]]
-   (let [[req res] (service/make-search-service host port {:index-name index-name
-                                                           :field-name field-name})]
+   (let [[req res err] (service/make-search-service host port {:index-name index-name
+                                                               :field-name field-name})]
      {:db (assoc db :service {:req req
-                              :res res})
-      :subscribe-to-results res})))
+                              :res res
+                              :err err})
+      :subscribe-to-results [res err]})))

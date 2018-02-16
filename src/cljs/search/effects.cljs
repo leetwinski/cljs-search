@@ -15,9 +15,13 @@
 
 (fx/reg-fx
  :subscribe-to-results
- (fn [chan]
+ (fn [[res-chan err-chan]]
    (go-loop []
-     (when-let [results (a/<! chan)]
+     (when-let [results (a/<! res-chan)]
        (println results)
        (re-frame/dispatch [::events/update-results results])
+       (recur)))
+   (go-loop []
+     (when-let [error (a/<! err-chan)]
+       (println "REQUEST ERROR!" error)
        (recur)))))

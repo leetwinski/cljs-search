@@ -13,25 +13,28 @@
 (defn make-search-service
   "Creates elastic search service channels
    for passed host and port.n
-   returns a tuple2 of input requests channel to responses channel,
+   returns a tuple3 of input requests channel to response channel to errors channel,
    where requests expects the search strings to be queried
-   while responses contains [query result] vector"
+   while response contains [query result] vector"
   [host port {:keys [index-name field-name]
               :or {field-name +all-fields+}}]
   
   (let [endpoint (make-search-endpoint host port index-name)
         requests (a/chan (a/sliding-buffer 1))
-        responses (a/chan (a/sliding-buffer 1)
-                          (comp (filter (comp :success :result))
-                                (map #(update % :result (comp :hits :body)))))
+        results (a/chan (a/sliding-buffer 1))
+        [succ err] (a/split (comp :success :result)
+                            results
+                            (a/sliding-buffer 1)
+                            (a/sliding-buffer 10))
+        succ (a/map #(update % :result (comp :hits :body)) [succ] 1)
         search-fn (partial search endpoint field-name)]
     (go-loop []
       (when-let [search-text (a/<! requests)]
         (a/pipe (search-fn search-text)
-                responses
+                results
                 false))
       (recur))
-    [requests responses]))
+    [requests succ err]))
 
 
 (defn- make-search-endpoint [host port index-name]
