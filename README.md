@@ -15,6 +15,9 @@ A [re-frame](https://github.com/Day8/re-frame) elasticsearch search example
 docker-compose up
 ```
 
+the ui would be deployed at [http://localhost:8080](http://localhost:8080)
+
+
 ### add test data
 as soon as elasticsearch is up you can add prepared bulk data
 ```
