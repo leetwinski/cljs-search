@@ -1,22 +1,30 @@
 # search
 
 A [re-frame](https://github.com/Day8/re-frame) elasticsearch search example
-## Development Mode
 
-### Start Cider from Emacs:
 
-Put this in your Emacs config file:
+## Run with docker-compose (preferred)
+### Build images
 
 ```
-(setq cider-cljs-lein-repl
-	"(do (require 'figwheel-sidecar.repl-api)
-         (figwheel-sidecar.repl-api/start-figwheel!)
-         (figwheel-sidecar.repl-api/cljs-repl))")
+./build_images.sh --all
 ```
 
-Navigate to a clojurescript file and start a figwheel REPL with `cider-jack-in-clojurescript` or (`C-c M-J`)
+### deploy local docker infrastructure
+```
+docker-compose up
+```
 
-### Run application:
+### add test data
+as soon as elasticsearch is up you can add prepared bulk data
+```
+cd elastic
+curl -H "Content-Type: application/json" -XPOST localhost:9200/_bulk --data-binary "@prepared_data.dat" > /dev/null
+```
+
+## You can also run every app separately
+
+### Run ui:
 
 ```
 lein clean
@@ -26,6 +34,15 @@ lein figwheel dev
 Figwheel will automatically push cljs changes to the browser.
 
 Wait a bit, then browse to [http://localhost:3449](http://localhost:3449).
+
+
+### Run api server:
+```
+lein clean
+lein ring server
+```
+this would start development server at [http://localhost:3000](http://localhost:3000)
+
 
 ### Local elasticsearch deployment
 
