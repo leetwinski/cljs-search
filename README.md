@@ -24,6 +24,10 @@ lein clean
 lein figwheel dev
 ```
 
+Figwheel will automatically push cljs changes to the browser.
+
+Wait a bit, then browse to [http://localhost:3449](http://localhost:3449).
+
 ### Local elasticsearch deployment
 
 To start elasticsearch for testing needs:
@@ -40,10 +44,6 @@ You can bulk insert it this way:
 curl -H "Content-Type: application/json" -XPOST localhost:9200/_bulk --data-binary "@prepared_data.dat" > /dev/null
 ```
 
-
-Figwheel will automatically push cljs changes to the browser.
-
-Wait a bit, then browse to [http://localhost:3449](http://localhost:3449).
 
 ## Production Build
 
