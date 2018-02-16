@@ -43,6 +43,10 @@ You can bulk insert it this way:
 curl -H "Content-Type: application/json" -XPOST localhost:9200/_bulk --data-binary "@prepared_data.dat" > /dev/null
 ```
 
+you can also prepare your own dataset from newline separated text file by using `prepare_data.sh` script located in the `elastic` folder just like this:
+```
+./prepare_data.sh moby_dick.txt > new_data.dat
+```
 
 ## Production Build
 
