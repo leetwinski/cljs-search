@@ -7,12 +7,16 @@
 (defn search-panel []
   (let [input-text (r/atom "")]
     (fn []
-      [:div [:input
-             {:value @input-text
-              :on-change (fn [e]
-                           (let [text (-> e .-target .-value)]
-                             (reset! input-text text)
-                             (re-frame/dispatch [::events/send-search text])))}]])))
+      [:div {:style {:width "100%"
+                     :text-align "center"}}
+       [:input
+        {:style {:width "50%"
+                 :min-width "300px"}
+         :value @input-text
+         :on-change (fn [e]
+                      (let [text (-> e .-target .-value)]
+                        (reset! input-text text)
+                        (re-frame/dispatch [::events/send-search text])))}]])))
 
 (defn main-panel []
   (let [name (re-frame/subscribe [::subs/name])

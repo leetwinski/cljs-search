@@ -8,7 +8,6 @@
             [search.effects :as effects]
             [search.service :as service]))
 
-
 (defn dev-setup []
   (when config/debug?
     (enable-console-print!)

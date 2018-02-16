@@ -26,7 +26,8 @@
                             results
                             (a/sliding-buffer 1)
                             (a/sliding-buffer 10))
-        succ (a/map #(update % :result (comp :hits :body)) [succ] 1)
+        succ (a/map #(update % :result (comp :hits :body))
+                    [succ] 1)
         search-fn (partial search endpoint field-name)]
     (go-loop []
       (when-let [search-text (a/<! requests)]
@@ -38,9 +39,7 @@
 
 
 (defn- make-search-endpoint [host port index-name]
-  (let [base (str host ":" port "/")
-        index (when index-name (str index-name "/"))]
-    (str base index "_search")))
+  (str host ":" port "/search"))
 
 
 (defn- search [endpoint field-name search-text]
@@ -50,5 +49,5 @@
               :channel (a/chan 1 (map (partial hash-map :q search-text :result)))}))
 
 (defn- make-request [field-name search-text]
-  {:query {:match {field-name {:query search-text
-                               :operator "and"}}}})
+  {:q search-text
+   :field field-name})
